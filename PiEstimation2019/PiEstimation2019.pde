@@ -11,6 +11,15 @@ void setup() {
 }
 
 void draw() {
+  toss();
+
+  background(0);
+  drawSticks();
+  drawLines();
+  drawStats();
+}
+
+void toss() {
   tosses++;
   PVector pos = new PVector(random(width), random(height));
   PVector stick = PVector.fromAngle(random(2*PI)).setMag(stickLength);
@@ -23,13 +32,6 @@ void draw() {
   if (sticks.size() > 100) {
     sticks.remove(0);
     positions.remove(0);
-  }
-
-  if (frameCount%10000==0) {
-    background(0);
-    drawSticks();
-    drawLines();
-    drawStats();
   }
 }
 
@@ -73,8 +75,9 @@ void drawLines() {
 }
 
 void keyPressed() {
-  background(0);
-  drawSticks();
-  drawLines();
-  drawStats();
+  for (int i=0; i<10000; i++)
+    toss();
+  
+  if(key == 's')
+    saveFrame("pi-2019.png");
 }
